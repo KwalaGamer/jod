@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory System - Workers</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customers.css">
+    <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Worker Management</h1>
+            </div>
+            <div class="header-right">
+                <span id="currentUser"></span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+                <button id="toggleDarkMode">Toggle Dark Mode</button>
+            </div>
+        </header>
+        
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory</a></li>
+                <li><a href="sales.html"><i class="fas fa-shopping-cart"></i> Sales</a></li>
+                <li class="active"><a href="workers.html"><i class="fas fa-hard-hat"></i> Workers</a></li>
+                <li><a href="customers.html"><i class="fas fa-user-tie"></i> Customers</a></li>
+                <li><a href="importers.html"><i class="fas fa-truck"></i> Importers</a></li>
+                <li><a href="users.html"><i class="fas fa-user-cog"></i> Users</a></li>
+                <li><a href="logs.html"><i class="fas fa-clipboard-list"></i> Logs</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <div class="section-header">
+                <h2><i class="fas fa-hard-hat"></i> Worker Directory</h2>
+                <button id="addWorkerBtn" class="btn-primary">
+                    <i class="fas fa-plus"></i> Add Worker
+                </button>
+            </div>
+            
+            <div class="search-bar">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="workerSearch" placeholder="Search workers...">
+                </div>
+                <div class="filter-options">
+                    <select id="workerFilter">
+                        <option value="all">All Workers</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="workers-grid" id="workersGrid">
+                <!-- Workers cards will be loaded here -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading workers...</p>
+                </div>
+            </div>
+            
+            <!-- Add/Edit Worker Modal -->
+            <div id="workerModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="workerModalTitle">Add New Worker</h3>
+                        <span class="close-modal">&times;</span>
+                    </div>
+                    <form id="workerForm">
+                        <input type="hidden" id="workerId">
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="workerName">Full Name <span class="required">*</span></label>
+                                    <input type="text" id="workerName" placeholder="John Smith" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="workerPosition">Position <span class="required">*</span></label>
+                                    <input type="text" id="workerPosition" placeholder="e.g., Carpenter" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="workerPhone">Phone <span class="required">*</span></label>
+                                    <input type="tel" id="workerPhone" placeholder="+1 (555) 123-4567" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="workerEmail">Email</label>
+                                    <input type="email" id="workerEmail" placeholder="john@example.com">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="workerHireDate">Hire Date</label>
+                                    <input type="date" id="workerHireDate">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="workerStatus">Status</label>
+                                    <select id="workerStatus">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                        <option value="on_leave">On Leave</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="workerAddress">Address</label>
+                            <textarea id="workerAddress" rows="2" placeholder="123 Main St, City, Country"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="workerNotes">Notes</label>
+                            <textarea id="workerNotes" rows="2" placeholder="Any special notes..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" id="cancelWorkerBtn">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Worker</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/workers.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

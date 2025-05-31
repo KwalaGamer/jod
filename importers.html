@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory System - Importers</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customers.css">
+    <link rel="stylesheet" href="css/workers.css">
+    <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Importer Management</h1>
+            </div>
+            <div class="header-right">
+                <span id="currentUser"></span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+                <button id="toggleDarkMode">Toggle Dark Mode</button>
+            </div>
+        </header>
+        
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory</a></li>
+                <li><a href="sales.html"><i class="fas fa-shopping-cart"></i> Sales</a></li>
+                <li><a href="workers.html"><i class="fas fa-hard-hat"></i> Workers</a></li>
+                <li><a href="customers.html"><i class="fas fa-user-tie"></i> Customers</a></li>
+                <li class="active"><a href="importers.html"><i class="fas fa-truck"></i> Importers</a></li>
+                <li><a href="users.html"><i class="fas fa-user-cog"></i> Users</a></li>
+                <li><a href="logs.html"><i class="fas fa-clipboard-list"></i> Logs</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <div class="section-header">
+                <h2><i class="fas fa-truck"></i> Importer Directory</h2>
+                <button id="addImporterBtn" class="btn-primary">
+                    <i class="fas fa-plus"></i> Add Importer
+                </button>
+            </div>
+            
+            <div class="search-bar">
+                <div class="search-input">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="importerSearch" placeholder="Search importers...">
+                </div>
+                <div class="filter-options">
+                    <select id="importerFilter">
+                        <option value="all">All Importers</option>
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Add this right after the search bar in importers.html -->
+            <div class="importer-tabs">
+                <button class="tab-button active" data-tab="directory" id="directoryTab">Importer Directory</button>
+                <button class="tab-button" data-tab="stock-import" id="stockImportTab">Stock Import</button>
+            </div>
+            
+            <div class="importers-grid" id="importersGrid">
+                <!-- Importers cards will be loaded here -->
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                    <p>Loading importers...</p>
+                </div>
+            </div>
+            
+            <!-- Add/Edit Importer Modal -->
+            <div id="importerModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 id="importerModalTitle">Add New Importer</h3>
+                        <span class="close-modal">&times;</span>
+                    </div>
+                    <form id="importerForm">
+                        <input type="hidden" id="importerId">
+                        
+                        <div class="form-group">
+                            <label for="importerName">Company Name <span class="required">*</span></label>
+                            <input type="text" id="importerName" placeholder="Global Imports Inc." required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importerContactPerson">Contact Person <span class="required">*</span></label>
+                                    <input type="text" id="importerContactPerson" placeholder="John Smith" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importerPhone">Phone <span class="required">*</span></label>
+                                    <input type="tel" id="importerPhone" placeholder="+1 (555) 123-4567" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importerEmail">Email</label>
+                                    <input type="email" id="importerEmail" placeholder="contact@example.com">
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importerCountry">Country <span class="required">*</span></label>
+                                    <input type="text" id="importerCountry" placeholder="United States" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="importerAddress">Full Address</label>
+                            <textarea id="importerAddress" rows="2" placeholder="123 Business Rd, Industrial Area, Country"></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importerStatus">Status</label>
+                                    <select id="importerStatus">
+                                        <option value="active">Active</option>
+                                        <option value="inactive">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importerLeadTime">Lead Time (days)</label>
+                                    <input type="number" id="importerLeadTime" placeholder="14">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="importerNotes">Notes</label>
+                            <textarea id="importerNotes" rows="2" placeholder="Payment terms, special requirements..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn-secondary" id="cancelImporterBtn">Cancel</button>
+                            <button type="submit" class="btn-primary">Save Importer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="tab-content active" id="directory-tab">
+                <div class="importers-grid" id="importersGrid">
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Loading importers...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content" id="stock-import-tab">
+                <div class="loading-spinner full-page-loader">
+                    <div class="spinner"></div>
+                    <p>Loading stock import...</p>
+                </div>
+                <div class="import-form-container">
+                    <h3><i class="fas fa-boxes"></i> Import Stock</h3>
+                    <form id="stockImportForm">
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importImporter">Importer <span class="required">*</span></label>
+                                    <select id="importImporter" required>
+                                        <option value="">Select Importer</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="importDate">Import Date <span class="required">*</span></label>
+                                    <input type="date" id="importDate" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Items to Import</label>
+                            <div id="importItems">
+                                <div class="import-item">
+                                    <div class="form-row">
+                                        <div class="form-col">
+                                            <select class="import-product" required>
+                                                <option value="">Select Product</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-col">
+                                            <input type="number" class="import-quantity" min="1" value="1" required>
+                                        </div>
+                                        <div class="form-col">
+                                            <button type="button" class="btn-danger remove-import-item">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="button" id="addImportItemBtn" class="btn-secondary">Add Another Item</button>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="importNotes">Notes</label>
+                            <textarea id="importNotes" rows="2" placeholder="Any special notes about this import..."></textarea>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Record Import</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="import-history">
+                    <h3><i class="fas fa-history"></i> Import History</h3>
+                    <table id="importHistoryTable">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Importer</th>
+                                <th>Items</th>
+                                <th>Total Quantity</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Import history will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/importers.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

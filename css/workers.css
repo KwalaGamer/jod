@@ -1,0 +1,195 @@
+/* Workers Specific Styles */
+.workers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.worker-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.worker-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.worker-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 1.25rem;
+    color: white;
+}
+
+.worker-avatar.active {
+    border: 3px solid var(--success-color);
+}
+
+.worker-avatar.inactive {
+    border: 3px solid var(--error-color);
+}
+
+.worker-avatar.on-leave {
+    border: 3px solid var(--warning-color);
+}
+
+.worker-info h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.worker-position {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0.25rem 0;
+}
+
+.worker-info p {
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.worker-meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.worker-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.worker-status.active {
+    background-color: rgba(67, 160, 71, 0.1);
+    color: var(--success-color);
+}
+
+.worker-status.inactive {
+    background-color: rgba(229, 57, 53, 0.1);
+    color: var(--error-color);
+}
+
+.worker-status.on-leave {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: var(--warning-color);
+}
+
+/* Importers Specific Styles */
+.importers-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.importer-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.importer-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.importer-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    color: white;
+    background-color: var(--primary-color);
+}
+
+.importer-logo.active {
+    border: 3px solid var(--success-color);
+}
+
+.importer-logo.inactive {
+    border: 3px solid var(--error-color);
+}
+
+.importer-info h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.25rem;
+}
+
+.importer-country {
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0.25rem 0;
+}
+
+.importer-info p {
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-light);
+    font-size: 0.9rem;
+}
+
+.importer-meta {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+}
+
+.importer-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.importer-status.active {
+    background-color: rgba(67, 160, 71, 0.1);
+    color: var(--success-color);
+}
+
+.importer-status.inactive {
+    background-color: rgba(229, 57, 53, 0.1);
+    color: var(--error-color);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .workers-grid, .importers-grid {
+        grid-template-columns: 1fr;
+    }
+}

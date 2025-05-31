@@ -9,9 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "A comprehensive inventory management system with responsive design, dark mode support, and multiple functional modules for managing products, sales, workers, customers, and more. Built with HTML, CSS, JavaScript, and Node.js for backend data storage.",
   "dependencies": {
     "body-parser": "^2.2.0",
     "express": "^5.1.0"
-  }
+  },
+  "devDependencies": {}
 }
