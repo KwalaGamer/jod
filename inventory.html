@@ -6,34 +6,22 @@
     <title>Inventory System - Inventory</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/inventory.css">
+    <link rel="stylesheet" href="css/nav.css">
     <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="header-left">
-                <h1>Inventory Management</h1>
-            </div>
-            <div class="header-right">
-                <span id="currentUser"></span>
-                <button id="logoutBtn" class="btn-secondary">Logout</button>
-                <button id="toggleDarkMode">Toggle Dark Mode</button>
-            </div>
-        </header>
-        
-        <nav class="sidebar">
-            <ul>
-                <li><a href="dashboard.html"><i class="icon-dashboard"></i> Dashboard</a></li>
-                <li class="active"><a href="inventory.html"><i class="icon-inventory"></i> Inventory</a></li>
-                <li><a href="sales.html"><i class="icon-sales"></i> Sales</a></li>
-                <li><a href="workers.html"><i class="icon-workers"></i> Workers</a></li>
-                <li><a href="customers.html"><i class="icon-customers"></i> Customers</a></li>
-                <li><a href="importers.html"><i class="icon-importers"></i> Importers</a></li>
-                <li><a href="users.html"><i class="icon-users"></i> Users</a></li>
-                <li><a href="logs.html"><i class="icon-logs"></i> Logs</a></li>
-            </ul>
-        </nav>
-        
+    <script>
+            fetch('nav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.body.insertAdjacentHTML('afterbegin', data);
+                    // Load nav.js after navbar is inserted
+                    const script = document.createElement('script');
+                    script.src = 'js/nav.js';
+                    document.body.appendChild(script);
+                });
+    </script>
+
         <main class="main-content">
             <div class="inventory-tabs">
                 <button class="tab-button active" data-tab="raw">Raw Materials</button>

@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "Admin User",
+    "email": "admin@example.com",
+    "role": "admin",
+    "status": "active",
+    "lastActive": "2025-05-31T18:24:33.203Z",
+    "permissions": [
+      "inventory",
+      "reports",
+      "users",
+      "settings"
+    ]
+  }
+]

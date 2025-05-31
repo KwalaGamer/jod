@@ -11,30 +11,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="header-left">
-                <h1>Importer Management</h1>
-            </div>
-            <div class="header-right">
-                <span id="currentUser"></span>
-                <button id="logoutBtn" class="btn-secondary">Logout</button>
-                <button id="toggleDarkMode">Toggle Dark Mode</button>
-            </div>
-        </header>
-        
-        <nav class="sidebar">
-            <ul>
-                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory</a></li>
-                <li><a href="sales.html"><i class="fas fa-shopping-cart"></i> Sales</a></li>
-                <li><a href="workers.html"><i class="fas fa-hard-hat"></i> Workers</a></li>
-                <li><a href="customers.html"><i class="fas fa-user-tie"></i> Customers</a></li>
-                <li class="active"><a href="importers.html"><i class="fas fa-truck"></i> Importers</a></li>
-                <li><a href="users.html"><i class="fas fa-user-cog"></i> Users</a></li>
-                <li><a href="logs.html"><i class="fas fa-clipboard-list"></i> Logs</a></li>
-            </ul>
-        </nav>
+    <script>
+        fetch('nav.html')
+            .then(response => response.text())
+            .then(data => {
+                document.body.insertAdjacentHTML('afterbegin', data);
+                // Load nav.js after navbar is inserted
+                const script = document.createElement('script');
+                script.src = 'js/nav.js';
+                document.body.appendChild(script);
+            });
+    </script>
         
         <main class="main-content">
             <div class="section-header">

@@ -3,149 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory System - Workers</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/customers.css">
-    <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
+    <title>Workers Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/workers.css">
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="header-left">
-                <h1>Worker Management</h1>
-            </div>
-            <div class="header-right">
-                <span id="currentUser"></span>
-                <button id="logoutBtn" class="btn-secondary">Logout</button>
-                <button id="toggleDarkMode">Toggle Dark Mode</button>
-            </div>
-        </header>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <i class="fas fa-boxes"></i>
+            <span>InventoryPro</span>
+        </div>
         
-        <nav class="sidebar">
-            <ul>
-                <li><a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-                <li><a href="inventory.html"><i class="fas fa-boxes"></i> Inventory</a></li>
-                <li><a href="sales.html"><i class="fas fa-shopping-cart"></i> Sales</a></li>
-                <li class="active"><a href="workers.html"><i class="fas fa-hard-hat"></i> Workers</a></li>
-                <li><a href="customers.html"><i class="fas fa-user-tie"></i> Customers</a></li>
-                <li><a href="importers.html"><i class="fas fa-truck"></i> Importers</a></li>
-                <li><a href="users.html"><i class="fas fa-user-cog"></i> Users</a></li>
-                <li><a href="logs.html"><i class="fas fa-clipboard-list"></i> Logs</a></li>
-            </ul>
-        </nav>
+        <div class="navbar-links">
+            <a href="dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+            <a href="inventory.html"><i class="fas fa-box-open"></i> Inventory</a>
+            <!-- <a href="products.html"><i class="fas fa-cubes"></i> Products</a> -->
+            <a href="workers.html" class="active"><i class="fas fa-users-cog"></i> Workers</a>
+            <a href="customers.html"><i class="fas fa-users"></i> Customers</a>
+            <a href="sales.html"><i class="fas fa-shopping-cart"></i> Sales</a>
+            <a href="importers.html"><i class="fas fa-truck"></i> Importers</a>
+            <a href="logs.html"><i class="fas fa-clipboard-list"></i> Logs</a>
+            <a href="users.html"><i class="fas fa-user-shield"></i> Users</a>
+        </div>
         
-        <main class="main-content">
-            <div class="section-header">
-                <h2><i class="fas fa-hard-hat"></i> Worker Directory</h2>
+        <div class="navbar-actions">
+            <button id="darkModeToggle" class="btn-icon">
+                <i class="fas fa-moon"></i>
+            </button>
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/40" alt="User">
+                <span>Admin</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+        
+        <button class="navbar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
+    <div class="workers-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-users-cog"></i> Workers</h2>
+            </div>
+            <div class="sidebar-menu">
                 <button id="addWorkerBtn" class="btn-primary">
-                    <i class="fas fa-plus"></i> Add Worker
+                    <i class="fas fa-user-plus"></i> Add Worker
                 </button>
-            </div>
-            
-            <div class="search-bar">
-                <div class="search-input">
-                    <i class="fas fa-search"></i>
+                <div class="search-box">
                     <input type="text" id="workerSearch" placeholder="Search workers...">
-                </div>
-                <div class="filter-options">
-                    <select id="workerFilter">
-                        <option value="all">All Workers</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
+                    <i class="fas fa-search"></i>
                 </div>
             </div>
-            
-            <div class="workers-grid" id="workersGrid">
-                <!-- Workers cards will be loaded here -->
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <p>Loading workers...</p>
+            <div class="worker-stats">
+                <div class="stat-card">
+                    <i class="fas fa-users"></i>
+                    <h3 id="totalWorkers">0</h3>
+                    <p>Total Workers</p>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-clock"></i>
+                    <h3 id="activeWorkers">0</h3>
+                    <p>Active Today</p>
                 </div>
             </div>
-            
-            <!-- Add/Edit Worker Modal -->
-            <div id="workerModal" class="modal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3 id="workerModalTitle">Add New Worker</h3>
-                        <span class="close-modal">&times;</span>
-                    </div>
-                    <form id="workerForm">
-                        <input type="hidden" id="workerId">
-                        
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="workerName">Full Name <span class="required">*</span></label>
-                                    <input type="text" id="workerName" placeholder="John Smith" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="workerPosition">Position <span class="required">*</span></label>
-                                    <input type="text" id="workerPosition" placeholder="e.g., Carpenter" required>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="workerPhone">Phone <span class="required">*</span></label>
-                                    <input type="tel" id="workerPhone" placeholder="+1 (555) 123-4567" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="workerEmail">Email</label>
-                                    <input type="email" id="workerEmail" placeholder="john@example.com">
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="workerHireDate">Hire Date</label>
-                                    <input type="date" id="workerHireDate">
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label for="workerStatus">Status</label>
-                                    <select id="workerStatus">
-                                        <option value="active">Active</option>
-                                        <option value="inactive">Inactive</option>
-                                        <option value="on_leave">On Leave</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="workerAddress">Address</label>
-                            <textarea id="workerAddress" rows="2" placeholder="123 Main St, City, Country"></textarea>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="workerNotes">Notes</label>
-                            <textarea id="workerNotes" rows="2" placeholder="Any special notes..."></textarea>
-                        </div>
-                        
-                        <div class="form-actions">
-                            <button type="button" class="btn-secondary" id="cancelWorkerBtn">Cancel</button>
-                            <button type="submit" class="btn-primary">Save Worker</button>
-                        </div>
-                    </form>
-                </div>
+        </aside>
+
+    <div class="content">
+        <div class="content-header">
+            <h1>Worker Management</h1>
+            <div class="view-toggle">
+                <button id="gridView" class="active"><i class="fas fa-th"></i></button>
+                <button id="listView"><i class="fas fa-list"></i></button>
             </div>
-        </main>
+        </div>
+
+        <!-- Grid View (shown by default) -->
+        <div class="worker-grid" id="workerGrid">
+            <!-- Workers will be dynamically inserted here -->
+        </div>
+
+        <!-- List View (hidden by default) -->
+        <div class="worker-list" id="workerList">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Photo</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Contact</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="workerTableBody">
+                    <!-- Worker list rows will be inserted here -->
+                </tbody>
+            </table>
+        </div>
     </div>
-    
-    <script src="js/auth.js"></script>
+
+    <!-- Add Worker Modal -->
+    <div class="modal" id="workerModal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2><i class="fas fa-user-edit"></i> <span id="modalTitle">Add New Worker</span></h2>
+            
+            <form id="workerForm">
+                <input type="hidden" id="workerId">
+                
+                <div class="form-group">
+                    <label for="workerName">Full Name</label>
+                    <input type="text" id="workerName" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="workerPosition">Position</label>
+                        <select id="workerPosition" required>
+                            <option value="">Select Position</option>
+                            <option value="Manager">Manager</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Operator">Operator</option>
+                            <option value="Technician">Technician</option>
+                            <option value="Assistant">Assistant</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="workerSalary">Salary ($)</label>
+                        <input type="number" id="workerSalary" min="0" step="0.01" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="workerPhone">Phone</label>
+                        <input type="tel" id="workerPhone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="workerEmail">Email</label>
+                        <input type="email" id="workerEmail">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="workerAddress">Address</label>
+                    <textarea id="workerAddress" rows="2"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="workerJoinDate">Join Date</label>
+                    <input type="date" id="workerJoinDate" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="workerPhoto">Photo</label>
+                    <input type="file" id="workerPhoto" accept="image/*">
+                    <div class="photo-preview" id="photoPreview"></div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelWorker">Cancel</button>
+                    <button type="submit" class="btn-primary">Save Worker</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <script src="js/workers.js"></script>
-    <script src="js/main.js"></script>
 </body>
 </html>

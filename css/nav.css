@@ -1,0 +1,263 @@
+/* Dashboard Navigation Bar Styles */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--space-lg);
+  height: 64px;
+  background-color: var(--surface);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid var(--border);
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 1.25rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--primary);
+}
+
+.navbar-brand i {
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  display: flex;
+  gap: var(--space-sm);
+  flex: 1;
+  margin: 0 var(--space-xl);
+  overflow-x: auto;
+}
+
+.navbar-links a {
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  white-space: nowrap;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.navbar-links a:hover {
+  background-color: rgba(126, 87, 194, 0.1);
+  color: var(--primary);
+}
+
+.navbar-links a.active {
+  background-color: var(--primary);
+  color: white;
+}
+
+.navbar-links a.active i {
+  color: white;
+}
+
+.navbar-links a i {
+  color: var(--primary);
+  font-size: 1rem;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  cursor: pointer;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+  position: relative;
+}
+
+.user-profile:hover {
+  background-color: rgba(126, 87, 194, 0.1);
+}
+
+.user-profile img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-profile .username {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+.user-profile i {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  min-width: 180px;
+  padding: var(--space-sm) 0;
+  display: none;
+  z-index: 1000;
+}
+
+.user-profile.active .user-dropdown {
+  display: block;
+}
+
+.user-dropdown a {
+  display: flex;
+  align-items: center;
+  padding: var(--space-sm) var(--space-md);
+  color: var(--text-primary);
+  text-decoration: none;
+  gap: var(--space-sm);
+  font-size: var(--font-size-sm);
+}
+
+.user-dropdown a:hover {
+  background-color: rgba(126, 87, 194, 0.1);
+}
+
+.user-dropdown a i {
+  width: 20px;
+  text-align: center;
+  color: var(--primary);
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+
+/* Dark Mode Styles */
+[data-theme="dark"] .navbar {
+  background-color: var(--surface);
+  border-bottom-color: var(--border);
+}
+
+[data-theme="dark"] .navbar-links a {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .navbar-links a:hover {
+  color: var(--primary-light);
+}
+
+[data-theme="dark"] .user-dropdown {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+}
+
+/* Responsive Styles */
+@media (max-width: 1200px) {
+  .navbar-links {
+    margin: 0 var(--space-lg);
+  }
+}
+
+@media (max-width: 992px) {
+  .navbar-links {
+    position: fixed;
+    top: 64px;
+    left: -100%;
+    width: 280px;
+    height: calc(100vh - 64px);
+    background-color: var(--surface);
+    flex-direction: column;
+    gap: 0;
+    margin: 0;
+    padding: var(--space-md) 0;
+    transition: left var(--transition-normal);
+    z-index: 999;
+    border-right: 1px solid var(--border);
+  }
+  
+  .navbar-links.active {
+    left: 0;
+  }
+  
+  .navbar-links a {
+    padding: var(--space-md) var(--space-lg);
+    border-radius: 0;
+    justify-content: flex-start;
+  }
+  
+  .navbar-toggle {
+    display: block;
+  }
+  
+  .user-profile .username {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding: 0 var(--space-md);
+  }
+  
+  .navbar-brand span {
+    display: none;
+  }
+  
+  .navbar-actions {
+    gap: var(--space-sm);
+  }
+}
+
+/* Dashboard Specific Navbar Enhancements */
+.dashboard-navbar {
+  background-color: var(--primary);
+}
+
+.dashboard-navbar .navbar-brand,
+.dashboard-navbar .navbar-toggle {
+  color: white;
+}
+
+.dashboard-navbar .navbar-links a {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-navbar .navbar-links a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.dashboard-navbar .navbar-links a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.dashboard-navbar .navbar-links a i {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.dashboard-navbar .user-profile:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.dashboard-navbar .user-profile i {
+  color: rgba(255, 255, 255, 0.9);
+}

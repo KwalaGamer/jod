@@ -1,92 +1,225 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventory System - Dashboard</title>
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard | InventoryPro</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/nav.css">
+  <!-- Dashboard CSS -->
+  <link rel="stylesheet" href="css/dashboard.css">
+  <!-- Load Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <header class="app-header">
-            <div class="header-left">
-                <h1>Inventory Dashboard</h1>
-            </div>
-            <div class="header-right">
-                <span id="currentUser"></span>
-                <button id="logoutBtn" class="btn-secondary">Logout</button>
-                <button id="toggleDarkMode">Toggle Dark Mode</button>
-            </div>
-        </header>
-        
-        <nav class="sidebar">
-            <ul>
-                <li class="active"><a href="dashboard.html"><i class="icon-dashboard"></i> Dashboard</a></li>
-                <li><a href="inventory.html"><i class="icon-inventory"></i> Inventory</a></li>
-                <li><a href="sales.html"><i class="icon-sales"></i> Sales</a></li>
-                <li><a href="workers.html"><i class="icon-workers"></i> Workers</a></li>
-                <li><a href="customers.html"><i class="icon-customers"></i> Customers</a></li>
-                <li><a href="importers.html"><i class="icon-importers"></i> Importers</a></li>
-                <li><a href="users.html"><i class="icon-users"></i> Users</a></li>
-                <li><a href="logs.html"><i class="icon-logs"></i> Logs</a></li>
-            </ul>
-        </nav>
-        
-        <main class="main-content">
-            <div class="stats-container">
-                <div class="stat-card">
-                    <h3>Total Products</h3>
-                    <p id="totalProducts">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Total Raw Items</h3>
-                    <p id="totalRawItems">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Today's Sales</h3>
-                    <p id="todaysSales">0</p>
-                </div>
-                <div class="stat-card">
-                    <h3>Recent Imports</h3>
-                    <p id="recentImports">0</p>
-                </div>
-            </div>
-            
-            <div class="charts-container">
-                <div class="chart-card">
-                    <h3>Worker Consumption</h3>
-                    <canvas id="workerChart"></canvas>
-                </div>
-                <div class="chart-card">
-                    <h3>Customer Purchases</h3>
-                    <canvas id="customerChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="recent-logs">
-                <h2>Recent Activity</h2>
-                <table id="recentLogsTable">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>User</th>
-                            <th>Action</th>
-                            <th>Details</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Logs will be populated here -->
-                    </tbody>
-                </table>
-            </div>
-        </main>
+  <!-- Navigation will be inserted here -->
+  <script>
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('afterbegin', data);
+        const script = document.createElement('script');
+        script.src = 'js/script.js';
+        document.body.appendChild(script);
+      });
+  </script>
+
+  <main class="dashboard-container">
+    <section class="dashboard-header">
+      <h1>Dashboard Overview</h1>
+      <p>Welcome back! Here's what's happening with your inventory.</p>
+    </section>
+
+    <div class="stats-grid">
+      <!-- Stats Card 1 -->
+      <div class="stats-card fade-in">
+        <div class="stats-card-header">
+          <i class="fas fa-box"></i>
+          <h3>Total Inventory</h3>
+        </div>
+        <div class="stats-card-body">
+          <span class="stats-value">1,248</span>
+          <span class="stats-change positive">+12% from last month</span>
+        </div>
+      </div>
+
+      <!-- Stats Card 2 -->
+      <div class="stats-card fade-in">
+        <div class="stats-card-header">
+          <i class="fas fa-users"></i>
+          <h3>Active Workers</h3>
+        </div>
+        <div class="stats-card-body">
+          <span class="stats-value">24</span>
+          <span class="stats-change">3 on leave</span>
+        </div>
+      </div>
+
+      <!-- Stats Card 3 -->
+      <div class="stats-card fade-in">
+        <div class="stats-card-header">
+          <i class="fas fa-shopping-cart"></i>
+          <h3>Today's Sales</h3>
+        </div>
+        <div class="stats-card-body">
+          <span class="stats-value">$3,845</span>
+          <span class="stats-change positive">15 transactions</span>
+        </div>
+      </div>
+
+      <!-- Stats Card 4 -->
+      <div class="stats-card fade-in">
+        <div class="stats-card-header">
+          <i class="fas fa-truck"></i>
+          <h3>Pending Orders</h3>
+        </div>
+        <div class="stats-card-body">
+          <span class="stats-value">7</span>
+          <span class="stats-change warning">2 high priority</span>
+        </div>
+      </div>
     </div>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/dashboard.js"></script>
-    <script src="js/charts.js"></script>
-    <script src="js/main.js"></script>
+<div class="dashboard-horizontal-container">
+  <!-- Sales Card -->
+  <div class="dashboard-card sales-card">
+    <div class="card-header">
+      <h3><i class="fas fa-chart-line"></i> Sales Overview</h3>
+    </div>
+    <div class="card-content">
+      <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+      </div>
+      <div class="sales-stats">
+        <div class="stat-item">
+          <span class="stat-value">$12,450</span>
+          <span class="stat-label">Today's Sales</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">$84,320</span>
+          <span class="stat-label">This Week</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory Card -->
+  <div class="dashboard-card inventory-card">
+    <div class="card-header">
+      <h3><i class="fas fa-boxes"></i> Inventory Status</h3>
+    </div>
+    <div class="card-content">
+      <!-- <canvas id="inventoryChart" height="220"></canvas> -->
+      <div class="inventory-summary">
+        <div class="inventory-item">
+          <span class="inventory-count">1,248</span>
+          <span class="inventory-label">Total Items</span>
+        </div>
+        <div class="inventory-item">
+          <span class="inventory-count warning">47</span>
+          <span class="inventory-label">Low Stock</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions Card -->
+  <div class="dashboard-card quick-actions-card">
+    <div class="card-header">
+      <h3><i class="fas fa-bolt"></i> Quick Actions</h3>
+    </div>
+    <div class="card-content">
+      <div class="actions-grid">
+        <button class="action-btn">
+          <i class="fas fa-plus"></i>
+          <span>Add Product</span>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-user-plus"></i>
+          <span>Add Worker</span>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-file-import"></i>
+          <span>Import Data</span>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-chart-bar"></i>
+          <span>Generate Report</span>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-exchange-alt"></i>
+          <span>New Transfer</span>
+        </button>
+        <button class="action-btn">
+          <i class="fas fa-truck"></i>
+          <span>New Order</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="dashboard-content">
+      <!-- Recent Activity Table -->
+      <section class="activity-section">
+        <div class="section-header">
+          <h2><i class="fas fa-clipboard-list"></i> Recent Activity</h2>
+          <button class="btn btn-outline">View All</button>
+        </div>
+        <div class="table-container">
+          <table class="activity-table">
+            <thead>
+              <tr>
+                <th>Action</th>
+                <th>User</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Product Added</td>
+                <td>John Doe</td>
+                <td>10 min ago</td>
+                <td><span class="badge success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>Inventory Updated</td>
+                <td>Jane Smith</td>
+                <td>25 min ago</td>
+                <td><span class="badge success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>Order Shipped</td>
+                <td>Mike Johnson</td>
+                <td>1 hour ago</td>
+                <td><span class="badge warning">Pending</span></td>
+              </tr>
+              <tr>
+                <td>Worker Added</td>
+                <td>Sarah Williams</td>
+                <td>2 hours ago</td>
+                <td><span class="badge success">Completed</span></td>
+              </tr>
+              <tr>
+                <td>Customer Complaint</td>
+                <td>David Brown</td>
+                <td>3 hours ago</td>
+                <td><span class="badge danger">Urgent</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+
+    </div>
+  </main>
+
+  <!-- Dashboard JavaScript -->
+  <script src="js/dashboard.js"></script>
 </body>
 </html>

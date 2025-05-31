@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Management | InventoryPro</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/users.css">
+  <link rel="stylesheet" href="css/nav.css">
+</head>
+<body>
+  <!-- Navigation will be inserted here -->
+  <script>
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.body.insertAdjacentHTML('afterbegin', data);
+        const script = document.createElement('script');
+        script.src = 'js/nav.js';
+        document.body.appendChild(script);
+      });
+  </script>
+
+  <main class="users-container">
+    <div class="page-header">
+      <h1><i class="fas fa-users-cog"></i> User Management</h1>
+      <div class="header-actions">
+        <button class="btn btn-primary" id="addUserBtn">
+          <i class="fas fa-user-plus"></i> Add User
+        </button>
+        <div class="search-box">
+          <input type="text" placeholder="Search users...">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="users-content">
+      <div class="users-grid" id="usersGrid">
+        <!-- Users will be dynamically inserted here -->
+      </div>
+
+      <div class="users-pagination">
+        <button class="btn btn-outline" id="prevUserPage"><i class="fas fa-chevron-left"></i></button>
+        <span class="page-info">Page 1 of 3</span>
+        <button class="btn btn-outline" id="nextUserPage"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Add User Modal -->
+  <div class="modal" id="userModal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2><i class="fas fa-user-edit"></i> <span id="modalTitle">Add New User</span></h2>
+      <form id="userForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="userName">Full Name</label>
+            <input type="text" id="userName" required>
+          </div>
+          <div class="form-group">
+            <label for="userEmail">Email</label>
+            <input type="email" id="userEmail" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="userRole">Role</label>
+            <select id="userRole" required>
+              <option value="">Select Role</option>
+              <option value="admin">Administrator</option>
+              <option value="manager">Manager</option>
+              <option value="staff">Staff</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="userStatus">Status</label>
+            <select id="userStatus" required>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="userPermissions">Permissions</label>
+          <div class="permissions-grid">
+            <label class="permission-item">
+              <input type="checkbox" name="permissions" value="inventory"> Inventory Access
+            </label>
+            <label class="permission-item">
+              <input type="checkbox" name="permissions" value="reports"> Reports Access
+            </label>
+            <label class="permission-item">
+              <input type="checkbox" name="permissions" value="users"> User Management
+            </label>
+            <label class="permission-item">
+              <input type="checkbox" name="permissions" value="settings"> System Settings
+            </label>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" class="btn btn-secondary" id="cancelUser">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save User</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="js/users.js"></script>
+</body>
+</html>

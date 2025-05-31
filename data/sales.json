@@ -1,1 +1,1 @@
-[]
+[{"id":"1748713133462","date":"2025-05-31","customerId":"1748713115622","items":[{"productId":"1748671123928","productName":"kondom","quantity":3,"price":1}],"subtotal":3,"tax":0.30000000000000004,"total":3.3,"notes":"1","recordedBy":"admin","recordedAt":"2025-05-31T17:38:53.462Z"},{"id":"1748713964847","date":"2025-05-31","customerId":"1748713115622","items":[{"productId":"1748671123928","productName":"kondom","quantity":300,"price":1}],"subtotal":300,"tax":30,"total":330,"notes":"","recordedBy":"admin","recordedAt":"2025-05-31T17:52:44.847Z"}]
