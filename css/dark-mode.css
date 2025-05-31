@@ -1,0 +1,38 @@
+:root {
+    --primary-color: #9c27b0;
+    --primary-light: #ba68c8;
+    --primary-dark: #7b1fa2;
+    --secondary-color: #e1bee7;
+    --text-color: #e0e0e0;
+    --text-light: #b0b0b0;
+    --background-color: #121212;
+    --card-bg: #1e1e1e;
+    --border-color: #333333;
+    --error-color: #ef5350;
+    --success-color: #66bb6a;
+    --warning-color: #ffa726;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+.login-container, .stat-card, .chart-card, .form-container {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.sidebar {
+    background-color: var(--card-bg);
+    border-right: 1px solid var(--border-color);
+}
+
+th {
+    background-color: rgba(156, 39, 176, 0.2);
+    color: var(--primary-light);
+}
+
+tr:hover {
+    background-color: rgba(156, 39, 176, 0.1);
+}

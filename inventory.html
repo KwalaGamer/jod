@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory System - Inventory</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/inventory.css">
+    <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Inventory Management</h1>
+            </div>
+            <div class="header-right">
+                <span id="currentUser"></span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+                <button id="toggleDarkMode">Toggle Dark Mode</button>
+            </div>
+        </header>
+        
+        <nav class="sidebar">
+            <ul>
+                <li><a href="dashboard.html"><i class="icon-dashboard"></i> Dashboard</a></li>
+                <li class="active"><a href="inventory.html"><i class="icon-inventory"></i> Inventory</a></li>
+                <li><a href="sales.html"><i class="icon-sales"></i> Sales</a></li>
+                <li><a href="workers.html"><i class="icon-workers"></i> Workers</a></li>
+                <li><a href="customers.html"><i class="icon-customers"></i> Customers</a></li>
+                <li><a href="importers.html"><i class="icon-importers"></i> Importers</a></li>
+                <li><a href="users.html"><i class="icon-users"></i> Users</a></li>
+                <li><a href="logs.html"><i class="icon-logs"></i> Logs</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <div class="inventory-tabs">
+                <button class="tab-button active" data-tab="raw">Raw Materials</button>
+                <button class="tab-button" data-tab="products">Finished Products</button>
+                <button class="tab-button" data-tab="add">Add New Item</button>
+            </div>
+            
+            <div class="tab-content active" id="raw-tab">
+                <div class="table-container">
+                    <table id="rawItemsTable">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Price</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Raw items will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="products-tab">
+                <div class="table-container">
+                    <table id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Unit</th>
+                                <th>Price</th>
+                                <th>Last Updated</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Products will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="tab-content" id="add-tab">
+                <div class="form-container">
+                    <h2>Add New Inventory Item</h2>
+                    <form id="inventoryForm">
+                        <div class="form-group">
+                            <label for="itemType">Item Type</label>
+                            <select id="itemType" required>
+                                <option value="">Select Type</option>
+                                <option value="raw">Raw Material</option>
+                                <option value="product">Finished Product</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="itemName">Item Name</label>
+                            <input type="text" id="itemName" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="itemQuantity">Quantity</label>
+                                    <input type="number" id="itemQuantity" min="0" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="itemUnit">Unit</label>
+                                    <input type="text" id="itemUnit" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="itemPrice">Price (per unit)</label>
+                            <input type="number" id="itemPrice" min="0" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="itemDescription">Description</label>
+                            <textarea id="itemDescription" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="itemImage">Item Image</label>
+                            <input type="file" id="itemImage" accept="image/*">
+                            <div class="image-preview" id="imagePreview"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Add Item</button>
+                    </form>
+                </div>
+            </div>
+            
+            <!-- Edit Item Modal -->
+            <div id="editModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-modal">&times;</span>
+                    <h2>Edit Inventory Item</h2>
+                    <form id="editItemForm">
+                        <input type="hidden" id="editItemId">
+                        
+                        <div class="form-group">
+                            <label for="editItemName">Item Name</label>
+                            <input type="text" id="editItemName" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="editItemQuantity">Quantity</label>
+                                    <input type="number" id="editItemQuantity" min="0" step="0.01" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label for="editItemUnit">Unit</label>
+                                    <input type="text" id="editItemUnit" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="editItemPrice">Price (per unit)</label>
+                            <input type="number" id="editItemPrice" min="0" step="0.01" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="editItemDescription">Description</label>
+                            <textarea id="editItemDescription" rows="3"></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="editItemImage">Item Image</label>
+                            <input type="file" id="editItemImage" accept="image/*">
+                            <div class="image-preview" id="editImagePreview"></div>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary">Save Changes</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="js/auth.js"></script>
+    <script src="js/inventory.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

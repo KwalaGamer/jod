@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory System - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dark-mode.css" id="darkModeStyle" disabled>
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-left">
+                <h1>Inventory Dashboard</h1>
+            </div>
+            <div class="header-right">
+                <span id="currentUser"></span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+                <button id="toggleDarkMode">Toggle Dark Mode</button>
+            </div>
+        </header>
+        
+        <nav class="sidebar">
+            <ul>
+                <li class="active"><a href="dashboard.html"><i class="icon-dashboard"></i> Dashboard</a></li>
+                <li><a href="inventory.html"><i class="icon-inventory"></i> Inventory</a></li>
+                <li><a href="sales.html"><i class="icon-sales"></i> Sales</a></li>
+                <li><a href="workers.html"><i class="icon-workers"></i> Workers</a></li>
+                <li><a href="customers.html"><i class="icon-customers"></i> Customers</a></li>
+                <li><a href="importers.html"><i class="icon-importers"></i> Importers</a></li>
+                <li><a href="users.html"><i class="icon-users"></i> Users</a></li>
+                <li><a href="logs.html"><i class="icon-logs"></i> Logs</a></li>
+            </ul>
+        </nav>
+        
+        <main class="main-content">
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>Total Products</h3>
+                    <p id="totalProducts">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Total Raw Items</h3>
+                    <p id="totalRawItems">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Today's Sales</h3>
+                    <p id="todaysSales">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Recent Imports</h3>
+                    <p id="recentImports">0</p>
+                </div>
+            </div>
+            
+            <div class="charts-container">
+                <div class="chart-card">
+                    <h3>Worker Consumption</h3>
+                    <canvas id="workerChart"></canvas>
+                </div>
+                <div class="chart-card">
+                    <h3>Customer Purchases</h3>
+                    <canvas id="customerChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="recent-logs">
+                <h2>Recent Activity</h2>
+                <table id="recentLogsTable">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>User</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Logs will be populated here -->
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
